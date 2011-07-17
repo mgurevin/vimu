@@ -18,10 +18,6 @@ def rlinput(prompt, prefill=''):
 config = ConfigParser.RawConfigParser()
 config.read('vimu.cfg')
 
-# Writing our configuration file to 'example.cfg'
-with open('example.cfg', 'wb') as configfile:
-    config.write(configfile)
-
 parser = OptionParser('usage: %prog [options]')
 parser.add_option("-p", "--project", dest="project", help="project key, ex: PANELCELL")
 parser.add_option('-n', '--number', type = 'int', dest='issue_number', help="issue number, ex: 213")
