@@ -4,6 +4,7 @@ import sys
 import readline
 import SOAPpy
 import getpass
+import ConfigParser
 
 from optparse import OptionParser
 
@@ -13,6 +14,13 @@ def rlinput(prompt, prefill=''):
       return raw_input(prompt)
    finally:
       readline.set_startup_hook()
+
+config = ConfigParser.RawConfigParser()
+config.read('vimu.cfg')
+
+# Writing our configuration file to 'example.cfg'
+with open('example.cfg', 'wb') as configfile:
+    config.write(configfile)
 
 parser = OptionParser('usage: %prog [options]')
 parser.add_option("-p", "--project", dest="project", help="project key, ex: PANELCELL")
@@ -38,7 +46,7 @@ if options.issue_number == None:
 print 'Jira Authentication'
 username = rlinput('enter username: ', getpass.getuser())
 password = getpass.getpass("enter password for user %s: " % username, sys.stderr)
-wsdl = rlinput('enter service wsdl: ', 'http://jira.kartaca.com/rpc/soap/jirasoapservice-v2?wsdl')
+wsdl = rlinput('enter service wsdl: ', config.get('main', 'jira_wsdl'))
 
 print 'Username: ' + username
 print 'Password: ******'
@@ -54,5 +62,3 @@ issue = soap.getIssue(auth, options.project + '-' + str(options.issue_number))
 print "      issue: " + issue.key
 print "description: " + issue.description
 print "     status: " + issue.status
-
-if issue.status == 

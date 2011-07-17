@@ -1,0 +1,2 @@
+[main]
+jira_wsdl = http://jira.kartaca.com/rpc/soap/jirasoapservice-v2?wsdl
